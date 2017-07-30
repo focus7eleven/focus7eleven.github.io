@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="监控," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="对前端异常的后知后觉往往是最恐怖的">
+<meta name="keywords" content="监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端异常监控">
+<meta property="og:url" content="http://slowlysuck.com/2017/07/23/前端异常监控/index.html">
+<meta property="og:site_name" content="good.kid.mAAd.city">
+<meta property="og:description" content="对前端异常的后知后觉往往是最恐怖的">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://km.oa.com/files/photos/pictures/201707/1500023904_30_w1051_h286.jpeg">
+<meta property="og:image" content="http://km.oa.com/files/photos/pictures/201707/1500024023_43_w796_h383.jpeg">
+<meta property="og:image" content="http://km.oa.com/files/photos/pictures/201707/1500024033_82_w799_h320.jpeg">
+<meta property="og:image" content="http://km.oa.com/files/photos/pictures/201707/1499936066_66_w1085_h712.jpeg">
+<meta property="og:image" content="http://km.oa.com/files/photos/pictures/201707/1499936369_34_w1078_h608.jpeg">
+<meta property="og:image" content="http://km.oa.com/files/photos/pictures/201707/1499936242_51_w1070_h782.jpeg">
+<meta property="og:image" content="http://km.oa.com/files/photos/pictures/201707/1499936543_53_w1087_h691.jpeg">
+<meta property="og:image" content="http://km.oa.com/files/photos/pictures/201707/1499936638_79_w720_h1280.jpeg">
+<meta property="og:updated_time" content="2017-07-30T08:38:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端异常监控">
+<meta name="twitter:description" content="对前端异常的后知后觉往往是最恐怖的">
+<meta name="twitter:image" content="http://km.oa.com/files/photos/pictures/201707/1500023904_30_w1051_h286.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://slowlysuck.com/2017/07/23/前端异常监控/"/>
+
+
+
+
+
+  <title>前端异常监控 | good.kid.mAAd.city</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">good.kid.mAAd.city</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Best Rapper in Tencent</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://slowlysuck.com/2017/07/23/前端异常监控/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Koa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/koa.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="good.kid.mAAd.city">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端异常监控</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-23T19:34:12+08:00">
+                2017-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Trust-The-Process/" itemprop="url" rel="index">
+                    <span itemprop="name">Trust The Process</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">对前端异常的后知后觉往往是最恐怖的</blockquote><br><a id="more"></a></p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>前端在项目层次中是直接面向用户的一个环节，对前端进行异常监控，能够第一时间发现程序中不易察觉的问题并及时进行反馈和处理。关于前端异常，主要有JavaScript 异常、资源加载异常、样式丢失等。目前微社区主要对 JavaScript 报错以及资源加载进行异常监控，并将这些数据收集上报到 <a href="http://monitor.oa.com/" target="_blank" rel="external">秒级监控平台</a>，从而提升前端页面的错误恢复能力，提高鲁棒性。</p>
+<h3 id="秒级监控"><a href="#秒级监控" class="headerlink" title="秒级监控"></a>秒级监控</h3><p>秒级监控是由数据平台部门开发的大数据实时监控平台，主要包括实时计算、告警推荐、告警分析以及告警收敛等功能。<br>关于秒级监控，有这么几个名词是需要知道的：</p>
+<ul>
+<li>维度：用来做 <strong>查询</strong> 的字段。</li>
+<li>指标：用来做 <strong>统计</strong> 的字段</li>
+<li>维度组合：监控平台计算和存储数据的基本单元。例如：adpos#buID （广告位 # 业务）</li>
+<li>告警对象：对某一维度的某一指标进行告警。例如：告警对象可以使 <strong>业务的交易量</strong>，或是 <strong>渠道+业务的成功率</strong>。</li>
+<li>告警策略：在什么情况下触发告警。一个告警对象包括 <strong>一个或多个</strong> 策略。</li>
+</ul>
+<p>上述的几个名词，在后面的接口接入部分，会详细介绍他们的具体使用场景。至于平台框架，平台核心功能模块等详细介绍，可以看 <a href="http://km.oa.com/articles/show/268127?kmref=author_post" target="_blank" rel="external">这篇帖子</a> 做进一步了解。</p>
+<h3 id="JavaScript-错误上报"><a href="#JavaScript-错误上报" class="headerlink" title="JavaScript 错误上报"></a>JavaScript 错误上报</h3><h4 id="可行性分析"><a href="#可行性分析" class="headerlink" title="可行性分析"></a>可行性分析</h4><p>在进行错误上报到秒级监控之前，首先需要对秒级监控平台的 <strong>监控方式</strong> 和 <strong>数据展现方式</strong> 进行评估，并依此来判断这个平台是否适合做 js 报错的监控，如果适合，监控能够做到什么样的程度。</p>
+<p>经研究，秒级监控平台的上报信息由 <strong>维度</strong> 和 <strong>指标</strong> 这两个概念组成。<strong>维度</strong> 用来做 <strong>查询</strong> ，<strong>指标</strong> 用来做 <strong>统计</strong>。所以整体而言，秒级监控更关注 <strong>从不同的维度</strong> 对数据进行 <strong>统计</strong>，并依此进行 <strong>告警</strong>。</p>
+<p>且用作统计的几个维度，其可选的值基本都是 <strong>可预测</strong>、<strong>可枚举</strong> 的。而 js 报错监控更关注报错的 <strong>细节</strong>，比如报错路径，报错信息等。这一类信息的 <strong>随机性</strong> 较大，理论上程序的任何位置都有可能出错，因此报错内容也就不可预测，唯一可以确定的是 error 的不同类型，然而仅仅知道是什么类型的 error 对于解决实际问题的帮助很小，统计的意义也就不是很大了。</p>
+<p>因此，对于 js 报错的收集和上报，秒级监控主要关注 <strong>报错量</strong> 这个指标，并依此进行告警设置。<strong>报错类型</strong>、<strong>报错路径</strong> 以及 <strong>报错信息</strong> 这几个信息也会进行记录，但并不作为告警的依据。所以对于报错细节而言，目前分析下来更适合以 <strong>日志</strong> 的形式来呈现。</p>
+<p>另外，秒级监控平台没有存储用户上报的 <strong>原始日志</strong>，只是存储了 <strong>计算结果</strong>。所以对于一些比较重要的数据，比如支付数据等，需要保留原始日志的，需要 <strong>额外申请</strong>。且提交申请后，由平台根据用户填写的参数，评估所需要的资源，<strong>由用户提供机器</strong>，机器到位，审核通过后，才可以查看到日志。</p>
+<h4 id="错误拦截"><a href="#错误拦截" class="headerlink" title="错误拦截"></a>错误拦截</h4><p>JavaScript 的出错主要分为两种情况：</p>
+<ol>
+<li>JS脚本里的语法错误</li>
+<li>JS脚本在运行时发生的错误</li>
+</ol>
+<p>针对这两种情况，主要有两种错误拦截的方案：</p>
+<ol>
+<li><code>try...catch</code> 方案。追对具体的代码块，使用 <code>try...catch</code> 进行包裹。在 catch 部分对错误进行拦截和上报操作。</li>
+<li><code>window.onerror</code> 方案。监听全局的 error 事件。</li>
+</ol>
+<h5 id="try-…-catch-…"><a href="#try-…-catch-…" class="headerlink" title="try … catch …"></a>try … catch …</h5><p>Javascript 提供了 <code>try...catch</code> 的异常处理语法。它能够拦截到报错的 <strong>堆栈信息</strong> 。使用 <code>try...catch</code> 来拦截错误的方式相对较为灵活，可以有目的性地对核心代码块进行错误监控和上报。但这种方式同样存在着一些缺点：</p>
+<ol>
+<li><p>没法捕捉全局的错误事件，没有被 <code>try...catch</code> 块包裹的部分处于监控盲区。</p>
+</li>
+<li><p>对于一些 <strong>异步回调</strong> 来说，即使用 <code>try...catch</code> 包裹，也是无法正确拦截错误的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">  btn.onclick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    a &lt; <span class="number">2</span></div><div class="line">  &#125;</div><div class="line">&#125;<span class="keyword">catch</span> (e) &#123;</div><div class="line">  <span class="built_in">console</span>.log(e)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 此处变量 a 的 ReferenceError 是没办法被 catch 到的。</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>如果代码块包含语法错误， <code>try...catch</code> 无法被执行，也就无法正常进行错误拦截。</p>
+</li>
+</ol>
+<p>所以分析下来，对于一些核心代码块的错误拦截，可以采用 <code>try...catch</code> 的方法。但 <code>try...catch</code> 会造成额外的代码编写成本，因此 <strong>目前微社区采用监听 error 事件的方案</strong>。</p>
+<h5 id="onerror-事件"><a href="#onerror-事件" class="headerlink" title="onerror 事件"></a>onerror 事件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * @param &#123;String&#125;  errorMessage   错误信息</span></div><div class="line"><span class="comment"> * @param &#123;String&#125;  scriptURI      出错的文件</span></div><div class="line"><span class="comment"> * @param &#123;Long&#125;    lineNumber     出错代码的行号</span></div><div class="line"><span class="comment"> * @param &#123;Long&#125;    columnNumber   出错代码的列号</span></div><div class="line"><span class="comment"> * @param &#123;Object&#125;  errorObj       错误的详细信息，Anything</span></div><div class="line"><span class="comment"> */</span></div><div class="line"></div><div class="line"><span class="comment">// 方式一</span></div><div class="line"><span class="keyword">const</span> onerrorFunc = <span class="built_in">window</span>.onerror;</div><div class="line"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">errorMessage, scriptURI, lineNumber,columnNumber,errorObj</span>) </span>&#123;</div><div class="line">  <span class="comment">// TODO</span></div><div class="line">  onerrorFunc();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 方式二</span></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> error_message = event.message;</div><div class="line">    <span class="keyword">const</span> error_msg = event.error.message || <span class="string">''</span></div><div class="line">    <span class="keyword">const</span> error_stack = event.error.stack || <span class="string">''</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>相比较于 <code>try...catch</code> 的方案，<code>onerror</code> 事件能够拦截到更多的错误信息。它不仅可以拿到错误的 <strong>堆栈信息</strong>，还可以拿到错误发生的 <strong>行号</strong>， <strong>列号</strong>， <strong>出错文件</strong> 等等。不过对于线上代码来说，都是经过压缩和丑化的，错误的行号和列号并没有什么实际意义。总体来说，监听 error 事件的方案有以下几个特点：</p>
+<ol>
+<li>可以捕捉运行时错误以及语法错误。</li>
+<li>可以拿到更详细的错误信息。</li>
+<li>跨域资源需要特殊的头部支持。</li>
+</ol>
+<p>针对第3点，如果是跨域资源中报的错，浏览器并不会报具体的错误信息，而是以 <code>script error</code> 代替。这是浏览器在同源策略限制下所产生的结果。</p>
+<blockquote>
+<p>浏览器出于安全上的考虑，当页面引用的非同域的外部脚本中抛出了异常，此时本页面无权限获得这个异常详情， 将只输出 Script error 的错误信息。</p>
+</blockquote>
+<p>这个问题可以通过在脚本标签添加 <code>crossorigin</code> 属性来解决：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=<span class="string">"url"</span> crossorigin&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>增加 crossorigin 属性后，浏览器将自动在请求头部中添加一个 Origin 字段，发起一个跨域资源共享请求。然后如果服务器允许跨域，就可以进行正确的错误拦截了。</p>
+<p>搞定错误拦截方案之后，就可以开始进行错误上报了。</p>
+<h4 id="上报策略"><a href="#上报策略" class="headerlink" title="上报策略"></a>上报策略</h4><p>关于错误上报，一个很直观的思路就是，出现一个错误，对它进行拦截，然后就立即上报。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> error_message = event.message;</div><div class="line">    <span class="keyword">const</span> error_msg = event.error.message || <span class="string">''</span></div><div class="line">    <span class="keyword">const</span> error_stack = event.error.stack || <span class="string">''</span></div><div class="line">	<span class="keyword">const</span> data = &#123;error_msg, error_stack&#125;</div><div class="line">    reportData(data)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// reportData() 就是上报接口，发送一个 post 请求。</span></div></pre></td></tr></table></figure>
+<p>这么做存在两个问题：</p>
+<ol>
+<li>如果有错误一直不停地发生，接口的压力会很大，造成严重的服务器压力。</li>
+<li>上报的过程中如果发生错误，会发生循环嵌套上报。而这个错误是无需进行上报的。</li>
+</ol>
+<p>针对第一个问题，可以通过 <code>debounce</code> 的方法进行结局。第二个问题，完善 <code>reportData()</code> 的处理逻辑，对于上报过程中产生的错误进行过滤。</p>
+<h5 id="debounce"><a href="#debounce" class="headerlink" title="debounce"></a>debounce</h5><p><code>debounce</code> 是一种 <strong>防抖动</strong> 的方法。在前端开发中被广泛使用，诸如 <a href="http://underscorejs.org/" target="_blank" rel="external">underscore</a> 和 <a href="http://lodashjs.com/docs/" target="_blank" rel="external">lodash</a> 这些比较著名的前端工具库都已内置了这个方法。</p>
+<p>关于 debounce，最通俗的解释就是乘坐电梯这个例子。假设电梯门在3秒之后关闭，如果这3秒期间有人按了开门键，电梯会再次开门，推迟起步时间，如果一直有人按开门键，电梯就会一直处于等待状态。直到3秒内不再有人按键，电梯才会开始运行。</p>
+<p>与 <code>debounce</code> 类似的一个技术叫做 <code>throttle</code>，但两者也有本质区别。这里主要介绍一下 <code>debounce</code> 的实现原理。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, delay</span>) </span>&#123;</div><div class="line">  <span class="comment">// 定时器，用来 setTimeout</span></div><div class="line">  <span class="keyword">var</span> timer</div><div class="line"></div><div class="line">  <span class="comment">// 返回一个函数，这个函数会在一个时间区间结束后的 delay 毫秒时执行 fn 函数</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 保存函数调用时的上下文和参数，传递给 fn</span></div><div class="line">    <span class="keyword">var</span> context = <span class="keyword">this</span></div><div class="line">    <span class="keyword">var</span> args = <span class="built_in">arguments</span></div><div class="line"></div><div class="line">    <span class="comment">// 每次这个返回的函数被调用，就清除定时器，以保证不执行 fn</span></div><div class="line">    clearTimeout(timer)</div><div class="line"></div><div class="line">    <span class="comment">// 当返回的函数被最后一次调用后（也就是用户停止了某个连续的操作），</span></div><div class="line">    <span class="comment">// 再过 delay 毫秒就执行 fn</span></div><div class="line">    timer = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      fn.apply(context, args)</div><div class="line">    &#125;, delay)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>debounce</code> 的实现其实很简单，将 Debounce 化后的闭包函数作为频繁触发的事件的回调，其实还是频繁执行的，只不过，返回的闭包函数内部通过<code>clearTimeout()</code>，让真正需要执行的回调函数不执行了，只有在连续时间内，不在触发频繁事件后的<code>delay</code>秒后，执行真正的回调。</p>
+<p>在错误上报这个案例中，为了避免无休止的报错导致接口压力过大，先将错误信息暂时存储起来，就像乘电梯一样，先进入电梯，如果1000ms内持续有错误发生，上报的时间就会被推迟，目前由于上报的单条数据量较小，所以没有对单次上报做数量的限制。如果1000ms内没有错误再发生，”电梯“就关门，然后开始上报。</p>
+<p>下面是优化后的上报策略具体实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> URL = <span class="string">'http://10.213.139.116/php/comm/service/monitor/reporter.php'</span>;</div><div class="line"><span class="keyword">const</span> TID = <span class="string">'test'</span>;</div><div class="line"><span class="keyword">const</span> SYSID = <span class="number">9900290</span>;</div><div class="line"><span class="keyword">const</span> ERROR_INTFID = <span class="number">4</span>;</div><div class="line"><span class="keyword">const</span> DELAY_TIME = <span class="number">1000</span>;</div><div class="line"><span class="keyword">let</span> error_list = [];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, delay</span>) </span>&#123;</div><div class="line">  <span class="comment">// 定时器，用来 setTimeout</span></div><div class="line">  <span class="keyword">var</span> timer</div><div class="line"></div><div class="line">  <span class="comment">// 返回一个函数，这个函数会在一个时间区间结束后的 delay 毫秒时执行 fn 函数</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 保存函数调用时的上下文和参数，传递给 fn</span></div><div class="line">    <span class="keyword">var</span> context = <span class="keyword">this</span></div><div class="line">    <span class="keyword">var</span> args = <span class="built_in">arguments</span></div><div class="line"></div><div class="line">    <span class="comment">// 每次这个返回的函数被调用，就清除定时器，以保证不执行 fn</span></div><div class="line">    clearTimeout(timer)</div><div class="line"></div><div class="line">    <span class="comment">// 当返回的函数被最后一次调用后（也就是用户停止了某个连续的操作），</span></div><div class="line">    <span class="comment">// 再过 delay 毫秒就执行 fn</span></div><div class="line">    timer = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      fn.apply(context, args)</div><div class="line">    &#125;, delay)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">reportData</span>(<span class="params">error_list</span>)</span>&#123;</div><div class="line">  <span class="keyword">const</span> uploadData = &#123;</div><div class="line">    tid: TID,</div><div class="line">    sysID: SYSID,</div><div class="line">    intfID: ERROR_INTFID,</div><div class="line">    msg: error_list</div><div class="line">  &#125;</div><div class="line">  $.ajax(&#123;</div><div class="line">    type: <span class="string">'POST'</span>,</div><div class="line">    url: URL,</div><div class="line">    data: <span class="built_in">JSON</span>.stringify(uploadData),</div><div class="line">    contentType: <span class="string">'application/json'</span>,</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 用 debounce 封装过的上报函数</span></div><div class="line"><span class="keyword">const</span> delayReport = debounce(reportData, DELAY_TIME)</div><div class="line"></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> error_message = event.message;</div><div class="line">    <span class="keyword">const</span> error_msg = event.error.message || <span class="string">''</span></div><div class="line">    <span class="keyword">const</span> error_stack = event.error.stack || <span class="string">''</span></div><div class="line">    <span class="keyword">let</span> error_type = <span class="string">''</span></div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      error_type = error_message.split(<span class="string">":"</span>)[<span class="number">0</span>].split(<span class="string">' '</span>)[<span class="number">1</span>]</div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">      <span class="keyword">throw</span> e</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">const</span> msg = <span class="string">"error_num=1&amp;error_type="</span>+error_type+<span class="string">"&amp;error_msg="</span>+error_msg+<span class="string">"&amp;error_stack="</span>+error_stack</div><div class="line">    error_list.push(msg)</div><div class="line">    <span class="comment">// 延迟上报</span></div><div class="line">    delayReport(error_list)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="后续优化方向"><a href="#后续优化方向" class="headerlink" title="后续优化方向"></a>后续优化方向</h4><p>目前来说，上述方案已经可以满足现在业务需求，并且也解决了接口压力过大的敏感问题。除此以外，这个上报脚本需要在所有脚本之前被引入并执行，因此如果这个脚本存在一些隐患的话，后续的脚本将无法正常运行。所以在后续的优化方向上，需要进一步完善上报脚本自身的鲁棒性。</p>
+<p>当然，除此之外，在进行方案设计的过程中，针对 <code>try...catch</code> 书写过程繁琐的问题，想到了可以用 <strong>代理模式</strong> 将一些核心的原型方法进行重写。举例来说， <code>Object</code> 对象有一个 <code>get()</code> 方法， 可以对这个方法进行重写，将 <code>try...catch</code> 内置在方法中，这样在用到这个方法的时候，就不需要每次都额外编写 <code>try...catch</code> 代码块了。目前这个思路还处于探索之中。</p>
+<h3 id="资源加载耗时上报"><a href="#资源加载耗时上报" class="headerlink" title="资源加载耗时上报"></a>资源加载耗时上报</h3><h4 id="可行性分析-1"><a href="#可行性分析-1" class="headerlink" title="可行性分析"></a>可行性分析</h4><p>对于资源加载的耗时监控，我们关心的是资源加载的 <strong>平均时间</strong> 。资源加载的耗时可以在代码中计算而得，剩下的问题就是如何在秒级监控中，统计平均时间了。</p>
+<p>秒级监控提供 <strong>对上报数据求平均值</strong> 的能力。我们只需要上报资源加载的 <strong>总耗时</strong> ，以及上报的 <strong>总次数</strong>，就可以计算出 <strong>平均时间</strong>。而 总耗时 和 总次数 都是可以直接上报的，接口指标配置如下：</p>
+<p><img src="http://km.oa.com/files/photos/pictures/201707/1500023904_30_w1051_h286.jpeg" alt=""></p>
+<p><code>report_num</code> 和 <code>video_time</code> 分别代表 上报次数 和 总耗时，这些都是直接上报的。 <code>avg_video_time</code> 代表平均耗时，是通过 <code>report_num</code> 和 <code>video_time</code> 计算而得，具体的计算方法如下：</p>
+<p><img src="http://km.oa.com/files/photos/pictures/201707/1500024023_43_w796_h383.jpeg" alt=""><img src="http://km.oa.com/files/photos/pictures/201707/1500024033_82_w799_h320.jpeg" alt=""></p>
+<p>如上面两张图所示，平均耗时的 <em>数据来源</em> 选择 <strong>接口内指标关联</strong>， <em>量率标识</em> 选择 <strong>均值</strong>， <em>计算公式</em> 就显而易见了。</p>
+<p>所以分析下来，把资源加载的耗时情况上报到秒级监控是完全可行的，也是很有意义的，一旦发生资源加载异常，就可以进行实时告警。</p>
+<h4 id="耗时计算"><a href="#耗时计算" class="headerlink" title="耗时计算"></a>耗时计算</h4><p>对不同资源的加载耗时计算，沿用了 <strong>华佗上报</strong> 的计时方法。 <strong>华佗上报</strong> 目前一共设立了 30 个测速点对页面进行性能监控。其中的测速点包括了但不限于：</p>
+<ul>
+<li>样式加载完成</li>
+<li>js 加载完成</li>
+<li>dom 加载完成</li>
+<li>页面 onload 完成</li>
+<li>首页 / 视频 / 数据 / 赛事 页面切换完成</li>
+</ul>
+<p>以 <strong>样式加载</strong> 的测速为例，具体的计算方法如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 计时初始化--&gt;</div><div class="line">&lt;script&gt;</div><div class="line">	<span class="built_in">window</span>.timePoints = &#123;&#125;;           <span class="comment">// 存储测速点数据</span></div><div class="line">	<span class="built_in">window</span>.tempTimePoint = &#123;&#125;;        <span class="comment">// 存储打点数据</span></div><div class="line"> 	tempTimePoint[<span class="string">'1'</span>] = <span class="built_in">Date</span>.now();  <span class="comment">// 第一个点开始计时</span></div><div class="line">&lt;<span class="regexp">/script&gt;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">&lt;!-- 样式加载 --&gt;</span></div><div class="line"><span class="regexp">&lt;link rel="stylesheet" href="src/</span>css/comm.css<span class="string">" /&gt;</span></div><div class="line"><span class="string">&lt;link rel="</span>stylesheet<span class="string">" href="</span>src/css/common.css<span class="string">" /&gt;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">&lt;script&gt;</span></div><div class="line"><span class="string">  	// 第一个点计时完成</span></div><div class="line"><span class="string">	window.timePoints['1'] = Date.now() - tempTimePoint['1'];</span></div><div class="line"><span class="string">&lt;/script&gt;</span></div></pre></td></tr></table></figure>
+<p>其余几个测速点也用同样的方式进行计算，这样我们就得到了所有资源的耗时数据，接下来就可以进行上报了。</p>
+<h4 id="上报策略-1"><a href="#上报策略-1" class="headerlink" title="上报策略"></a>上报策略</h4><p>加载一个资源就上报一个数据显然是不合理的，由于资源加载有先后顺序，且并不是每一次页面访问都会加载到所有的资源。所以应该对资源测速点做一个分类，并且<strong>在合适的时间点统一上报</strong> 。</p>
+<ul>
+<li>正常访问情况下，都会触发的测速点：<ul>
+<li>样式加载完成</li>
+<li>js 加载完成</li>
+<li>dom 加载完成</li>
+<li>页面 onload 完成</li>
+</ul>
+</li>
+<li>访问到某个具体页面，才会触发的测速点：<ul>
+<li>首页 / 视频 / 数据 / 赛事 页面切换完成</li>
+<li>视频列表数据加载完成</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<p>对于必然会触发的测速点而言，页面 onload 完成必然是 <strong>最后一个</strong> 被触发，所以我们可以在页面的 onload 事件中，完成上报动作。具体实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> onloadFn = <span class="built_in">window</span>.onload;</div><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">window</span>.timePoints[<span class="string">'30'</span>] = <span class="built_in">Date</span>.now() - tempTimePoint[<span class="string">'1'</span>]; <span class="comment">// onload测速点</span></div><div class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> onloadFn == <span class="string">'function'</span>)&#123;</div><div class="line">  	onloadFn();</div><div class="line">  &#125;</div><div class="line">  common.setMonitorData(); <span class="comment">// 上报秒级监控</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 上报函数</span></div><div class="line">setMonitorData: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> css_time = <span class="built_in">window</span>.timePoints[<span class="string">'1'</span>];</div><div class="line">  <span class="keyword">var</span> js_time = <span class="built_in">window</span>.timePoints[<span class="string">'2'</span>];</div><div class="line">  <span class="keyword">var</span> dom_time = <span class="built_in">window</span>.timePoints[<span class="string">'3'</span>];</div><div class="line">  <span class="keyword">var</span> onload_time = <span class="built_in">window</span>.timePoints[<span class="string">'30'</span>];</div><div class="line">  <span class="keyword">if</span>(css_time &amp;&amp; js_time &amp;&amp; dom_time &amp;&amp; onload_time)&#123;</div><div class="line">    <span class="keyword">var</span> all_time = css_time + js_time + dom_time + onload_time</div><div class="line">    <span class="keyword">const</span> message = <span class="string">"report_num=1&amp;load_time="</span>+all_time+<span class="string">"&amp;css_time="</span>+css_time+<span class="string">"&amp;js_time="</span>+js_time+<span class="string">"&amp;dom_time="</span>+dom_time+<span class="string">"&amp;onload_time="</span>+onload_time</div><div class="line"></div><div class="line">    <span class="comment">// 开始上报</span></div><div class="line">    reporter.resourceMonitor(reporter.RESOURCE_INTFID, message);</div><div class="line">  &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p><code>reporter</code>中具体的上报操作，与前文中 JavaScript 错误上报类似，调用后端提供的 php 接口即可。</p>
+<p>对于第二类特定情况才会触发的测速点，在进入相关页面后，或拉取远端数据的回调函数中，进行数据上报即可。</p>
+<h4 id="后续优化方向-1"><a href="#后续优化方向-1" class="headerlink" title="后续优化方向"></a>后续优化方向</h4><p>目前对于第二类测速点的上报，上报代码块分布在程序的各个位置，比如所有 ajax 请求的回调函数中，这是一种相对比较零散的上报方式，没有办法做统一管理，若果上报逻辑一旦发生变化，各个代码块也要跟着修改。当然目前的上报逻辑相对来说已经做了优化处理了。如果能够仿照 JavaScript 错误上报的思路，同样对这类上报做一个代理，一定是极好的。</p>
+<h3 id="平台接入"><a href="#平台接入" class="headerlink" title="平台接入"></a>平台接入</h3><p>有关详细的平台接入步骤，可以看 <a href="http://km.oa.com/group/597/articles/show/211516?kmref=author_post" target="_blank" rel="external">官方的接入指引</a> 。这里以 JavaScript 错误上报为例。</p>
+<h4 id="接入步骤"><a href="#接入步骤" class="headerlink" title="接入步骤"></a>接入步骤</h4><ol>
+<li>在 <a href="mo.oa.com">秒级监控</a> 上创建系统，生成 <strong>sysID</strong> 和 <strong>intfID</strong>，由这两个字段确定数据所属接口。</li>
+<li>配置接口信息，包括维度，指标等信息。<ul>
+<li>指标中，”上报总次数“一类的值，通过直接上报常数，然后接口内选择 <strong>sum</strong> 即可。</li>
+<li>指标中，”平均耗时“一类的值，通过 <strong>总耗时</strong> 除以 <strong>上报总次数</strong> 来间接求得。 <strong>总耗时</strong> 和 <strong>上报总次数</strong> 的配置方法是类似的：每次上报单个值，然后选择 <strong>sum</strong> 求和，秒级监控就会得到总耗时。</li>
+</ul>
+</li>
+<li>使用后端提供的 php 接口进行数据上报。接口信息如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">url: http://10.213.139.116/php/comm/service/monitor/reporter.php</div><div class="line">method: POST</div><div class="line">body: [&#123;</div><div class="line">	tid: test, // 业务表id，用来区分同一个业务下面的不同表数据。</div><div class="line">	sysID: 9900290,</div><div class="line">	intfID: 1,</div><div class="line">	msg: [report_num=1&amp;video_time=231]</div><div class="line">&#125;]</div><div class="line">// body 内，msg是个数组，支持多条数据同时上报</div></pre></td></tr></table></figure>
+<ol>
+<li>设置告警策略，接受告警信息。秒级监控平台会根据上报的历史数据进行推荐告警，除此之外，也可以自定义告警策略。</li>
+</ol>
+<h4 id="接口配置"><a href="#接口配置" class="headerlink" title="接口配置"></a>接口配置</h4><p><img src="http://km.oa.com/files/photos/pictures/201707/1499936066_66_w1085_h712.jpeg" alt=""></p>
+<h4 id="指标展示"><a href="#指标展示" class="headerlink" title="指标展示"></a>指标展示</h4><p><img src="http://km.oa.com/files/photos/pictures/201707/1499936369_34_w1078_h608.jpeg" alt=""></p>
+<h4 id="维度统计"><a href="#维度统计" class="headerlink" title="维度统计"></a>维度统计</h4><p><img src="http://km.oa.com/files/photos/pictures/201707/1499936242_51_w1070_h782.jpeg" alt=""></p>
+<h4 id="自定义告警设置"><a href="#自定义告警设置" class="headerlink" title="自定义告警设置"></a>自定义告警设置</h4><p><img src="http://km.oa.com/files/photos/pictures/201707/1499936543_53_w1087_h691.jpeg" alt=""></p>
+<h4 id="告警信息"><a href="#告警信息" class="headerlink" title="告警信息"></a>告警信息</h4><p><img src="http://km.oa.com/files/photos/pictures/201707/1499936638_79_w720_h1280.jpeg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/监控/" rel="tag"># 监控</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/20/CodeCompile/" rel="next" title="使用 Webpack 进行项目构建">
+                <i class="fa fa-chevron-left"></i> 使用 Webpack 进行项目构建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/26/Unit Testing/" rel="prev" title="前端单元测试">
+                前端单元测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/koa.jpeg"
+               alt="Koa" />
+          <p class="site-author-name" itemprop="name">Koa</p>
+           
+              <p class="site-description motion-element" itemprop="description">Best Rapper in Tencent</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#秒级监控"><span class="nav-number">2.</span> <span class="nav-text">秒级监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-错误上报"><span class="nav-number">3.</span> <span class="nav-text">JavaScript 错误上报</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可行性分析"><span class="nav-number">3.1.</span> <span class="nav-text">可行性分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误拦截"><span class="nav-number">3.2.</span> <span class="nav-text">错误拦截</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#try-…-catch-…"><span class="nav-number">3.2.1.</span> <span class="nav-text">try … catch …</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onerror-事件"><span class="nav-number">3.2.2.</span> <span class="nav-text">onerror 事件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上报策略"><span class="nav-number">3.3.</span> <span class="nav-text">上报策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#debounce"><span class="nav-number">3.3.1.</span> <span class="nav-text">debounce</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续优化方向"><span class="nav-number">3.4.</span> <span class="nav-text">后续优化方向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源加载耗时上报"><span class="nav-number">4.</span> <span class="nav-text">资源加载耗时上报</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可行性分析-1"><span class="nav-number">4.1.</span> <span class="nav-text">可行性分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#耗时计算"><span class="nav-number">4.2.</span> <span class="nav-text">耗时计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上报策略-1"><span class="nav-number">4.3.</span> <span class="nav-text">上报策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续优化方向-1"><span class="nav-number">4.4.</span> <span class="nav-text">后续优化方向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平台接入"><span class="nav-number">5.</span> <span class="nav-text">平台接入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#接入步骤"><span class="nav-number">5.1.</span> <span class="nav-text">接入步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口配置"><span class="nav-number">5.2.</span> <span class="nav-text">接口配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指标展示"><span class="nav-number">5.3.</span> <span class="nav-text">指标展示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#维度统计"><span class="nav-number">5.4.</span> <span class="nav-text">维度统计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义告警设置"><span class="nav-number">5.5.</span> <span class="nav-text">自定义告警设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#告警信息"><span class="nav-number">5.6.</span> <span class="nav-text">告警信息</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="author" itemprop="copyrightHolder">Koa</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

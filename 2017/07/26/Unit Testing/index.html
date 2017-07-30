@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mocha,Chai," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="好的测试让开发事半功倍">
+<meta name="keywords" content="Mocha,Chai">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端单元测试">
+<meta property="og:url" content="http://slowlysuck.com/2017/07/26/Unit Testing/index.html">
+<meta property="og:site_name" content="good.kid.mAAd.city">
+<meta property="og:description" content="好的测试让开发事半功倍">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fhv3msqd3wj30dv07udgu.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1fhus8lecovj30pl0kijt1.jpg">
+<meta property="og:updated_time" content="2017-07-30T08:40:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端单元测试">
+<meta name="twitter:description" content="好的测试让开发事半功倍">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fhv3msqd3wj30dv07udgu.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://slowlysuck.com/2017/07/26/Unit Testing/"/>
+
+
+
+
+
+  <title>前端单元测试 | good.kid.mAAd.city</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">good.kid.mAAd.city</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Best Rapper in Tencent</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://slowlysuck.com/2017/07/26/Unit Testing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Koa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/koa.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="good.kid.mAAd.city">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端单元测试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-26T10:31:07+08:00">
+                2017-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Trust-The-Process/" itemprop="url" rel="index">
+                    <span itemprop="name">Trust The Process</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">好的测试让开发事半功倍</blockquote><br><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fhv3msqd3wj30dv07udgu.jpg" alt="mocha+chai"><br><a id="more"></a></p>
+<h4 id="为什么要做单元测试"><a href="#为什么要做单元测试" class="headerlink" title="为什么要做单元测试"></a>为什么要做单元测试</h4><p><strong>单元测试</strong>，是指对软件中的最小可测试单元进行检查和验证。</p>
+<p>这个最小测试单元，可以是一个 <code>Function</code> ，可以是一个 <code>Object</code> ，也可以是一个 <code>Component</code> ，或者是一个所依赖的 <code>Module</code>。</p>
+<p>在目前的工作流中，前端的测试工作主要由测试团队完成，开发团队本身做的测试工作相对较少。目前测试团队的测试方法相对简陋，基本都是简单的人工测试。所以 <strong>单元测试</strong> 作为开发周期中比较重要的一环，对项目的质量有着非常关键的作用。它属于一种 <strong>白盒测试</strong> ，是测试流中最靠前的一个环节，所以这一部分的工作对于我们开发成员来说是很有必要的。</p>
+<p>健全的单元测试不仅可以保证核心逻辑的 <strong>高可用性</strong> ，还可以作为另一种维度上的 <strong>文档</strong> 而存在。比如对于项目中很常见的 <code>helpers.js</code>，开发成员只需阅读这个文件的 <strong>测试用例</strong> 即可明白如何使用。</p>
+<p>说到单元测试，顺便提一下 <strong>BDD</strong> 和 <strong>TDD</strong> 这两种开发模式。</p>
+<p><strong>BDD - 行为驱动开发（Behavior Driven Development）</strong>，是一种新的敏捷开发方法。它更趋向于需求，需要共同利益者的参与，强调用户故事（User Story）和行为。</p>
+<p><strong>TDD - 测试驱动开发（Test Driven Development）</strong> 主要遵循以下几个规则：</p>
+<ul>
+<li>写一个单元测试去描述程序的一个方面。</li>
+<li>运行它应该会失败，因为程序还缺少这个特性。</li>
+<li>为这个程序添加一些尽可能简单的代码保证测试通过。</li>
+<li>重构这部分代码，直到代码没有重复、代码责任清晰并且结构简单。</li>
+<li>持续重复这样做，积累代码。</li>
+</ul>
+<p>另外，衡量是否使用了TDD的一个重要标准是测试对代码的覆盖率，覆盖率在80%以下说明一个团队没有充分掌握TDD，当然高覆盖率也不能说一定使用了TDD，这仅仅是一个参考指标。</p>
+<h4 id="怎么做单元测试"><a href="#怎么做单元测试" class="headerlink" title="怎么做单元测试"></a>怎么做单元测试</h4><p>所以在分清 BDD 和 TDD 之后，针对我们具体的业务需求，前端要做的单元测试工作主要覆盖以下几个方面：</p>
+<ol>
+<li>工具类 <code>.js</code> 的可用性测试，比如 <code>helpers.js</code> 、 <code>filters.js</code> 等。</li>
+<li>vuex 中的核心 <code>mutations</code> ，<code>getters</code> 和 <code>actions</code> 的逻辑测试。</li>
+<li>核心组件的逻辑测试。只是逻辑，暂不涉及界面与交互。</li>
+</ol>
+<p>针对第一点，测试用例应尽可能的 <strong>详尽</strong> 。比如 <code>helpers.js</code> 中有一个转换日期格式的 <code>Function</code> ，测试用例更多的是作为 <strong>开发文档</strong> 的意义而存在，它会告诉开发者，这个函数需要接受什么样的 <strong>参数</strong> ，最终会输出什么样的 <strong>结果</strong> 。所以测试用例越详尽对开发的帮助越大。</p>
+<p>针对第二点， vuex 官方给出了详尽的 <a href="https://vuex.vuejs.org/zh-cn/testing.html" target="_blank" rel="external">单元测试文档</a> 。关于 <code>mutations</code> 的测试主要覆盖 store 中一些比较重要的处理逻辑， 关于 <code>actions</code> 的测试主要用来保证后台接口的可用性，数据的准确性。这里面有关 <strong>边界情况</strong> 的测试很重要。</p>
+<p>针对第三点， vue 官方也给出了相应的 <a href="https://cn.vuejs.org/v2/guide/unit-testing.html" target="_blank" rel="external">单元测试文档</a> 。关于组件的测试相对是比较复杂的，一方面涉及到逻辑的正确性，另一方面还涉及到组件 <strong>交互</strong> 与 <strong>样式</strong> 的可用性。考虑到交互与样式的测试工作较为繁重，所以对于组件的测试主要侧重于组件逻辑这一块。后续可以考虑深入。</p>
+<p>顺便提一下，第二点和第三点的文档中，都提到了 <strong>Karma</strong> 这个自动化测试框架，这个也会作为后续的优化方向来进行。</p>
+<h4 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h4><p>测试框架：Mocha</p>
+<p>断言库：Chai</p>
+<p><a href="https://facebook.github.io/jest/" target="_blank" rel="external">Jest</a> 和 <a href="https://mochajs.org/" target="_blank" rel="external">Mocha</a> 是目前两个比较流行的轻量级测试框架。两者的生态环境对比如下：</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fhus8lecovj30pl0kijt1.jpg" alt=""></p>
+<p>由于 Jest 与 React 的相性更高，所以我们选择 Mocha 。Mocha 自身是不带断言库的，可供选择的断言库有很多，包括 <code>should.js</code> ， <code>expect.js</code>， <code>chai</code> 等。 <a href="http://chaijs.com/" target="_blank" rel="external">Chai</a> 是一个同时支持 BDD 和 TDD 风格的断言库，在 node 和浏览器环境都可以运行，相比之下更为高效。</p>
+<p>Vue 官方提供的 <a href="https://github.com/vuejs-templates/webpack" target="_blank" rel="external">webpack模板</a> 中，内置了一套 Karma + Mocha + Chai 的自动化测试框架。如果对这三个工具都比较熟悉，可以直接仿照他的方式来进行框架搭建。</p>
+<h4 id="环境搭建与测试示例"><a href="#环境搭建与测试示例" class="headerlink" title="环境搭建与测试示例"></a>环境搭建与测试示例</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 安装 mocha 和 chai</div><div class="line">npm i -D mocha chai</div><div class="line"></div><div class="line"><span class="meta">#</span> 在项目根目录下新建 test 目录</div><div class="line">mkdir test</div><div class="line"></div><div class="line"><span class="meta">#</span> 新建 demo.spec.js 作为测试示例</div><div class="line">cd test</div><div class="line">touch filters.spec.js</div></pre></td></tr></table></figure>
+<p>至此，最基本的测试环境已经搭建完成。所有的测试脚本都放在 <code>/test</code> 目录下，一般来说，一个 <code>.spec.js</code> 文件是针对某个具体 <strong>模块</strong> 或 <strong>组件</strong> 的测试，其内部可以包含多个 <code>test suite</code> ，每个 <code>test suite</code> 内可以包含若干个 <code>test case</code>。以 <code>filters.spec.js</code> 为例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> filters <span class="keyword">from</span> <span class="string">'../app/js/filters/index.js'</span></div><div class="line"><span class="keyword">import</span> &#123; expect &#125; <span class="keyword">from</span> <span class="string">'chai'</span></div><div class="line"></div><div class="line">describe(<span class="string">'date filters'</span>, () =&gt; &#123;</div><div class="line">	it(<span class="string">'can output correct data format'</span>, () =&gt; &#123;</div><div class="line">		<span class="keyword">const</span> formatted = filters.dateFormat(<span class="string">'2017/06/20'</span>,<span class="string">'yyyy-MM-dd'</span>)</div><div class="line">		expect(formatted).to.be.equal(<span class="string">'2017-06-20'</span>)</div><div class="line">	&#125;);</div><div class="line"></div><div class="line">	it(<span class="string">'can output error when it is not a date'</span>, () =&gt; &#123;</div><div class="line">		<span class="keyword">const</span> formatted = filters.dateFormat(<span class="string">'2017/13/32'</span>,<span class="string">'yyyy-MM-dd'</span>)</div><div class="line">        expect(formatted).to.be.equal(<span class="string">'INVALID FORMAT'</span>)</div><div class="line">	&#125;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>其中，一个 <strong>describe</strong> 描述的就是一个 <code>test suite</code>，这个 suite 主要负责测试日期转换函数的处理逻辑。它里面包含了两个 <code>test case</code> ，每个 <code>test case</code> 用 <strong>it</strong> 关键字来描述，第一个 case 输入一个合理的日期，然后期望得到一个正确的转换结果，第二个 case 给到一个非法的日期，然后期望得到错误信息的提示。</p>
+<p>到这里一个简单的单元测试就算完成了，当然上面的示例还是比较粗糙的，并没有对 <strong>特殊值</strong> 和 <strong>边界值</strong> 编写相应的 <code>test case</code>。从这个例子中可以看出，如果关于 日期转换函数 的测试用例写的很详尽的话，开发者可以直接把它当做 <strong>文档</strong> 来使用，这个函数怎么用，看测试用例就可以一目了然了。</p>
+<p>值得注意的的，为了能够使测试脚本支持 ES6 语法，在 <code>.babelrc</code> 和 <code>package.json</code> 中，要做一些配置。</p>
+<p>在 <strong>package.json</strong> 的测试指令中，使用 babel 对脚本进行语法转换：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="string">"scripts"</span>: &#123;</div><div class="line">	...</div><div class="line"></div><div class="line">	<span class="string">"test"</span>: <span class="string">"cross-env NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register"</span>,</div><div class="line">	...</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>由于 webpack 2.0 及 2.0 以上自带了 <strong><a href="https://webpack.js.org/guides/tree-shaking/" target="_blank" rel="external">Tree Shaking</a></strong> 的功能，所以在 <strong>.babelrc</strong> 中，presets 的 <a href="https://babeljs.io/docs/plugins/preset-es2015/" target="_blank" rel="external">modules 功能</a> 是关闭的，这样 webpack 就可以对那些没有被引用到的模块进行精简。但是在测试环境中，我们依旧需要 commonJS 来支持 import 和 export 语法，所以我们需要配置 <code>env</code> 字段，表示如果当前环境为 test 环境的话，开启 modules 功能，使用默认的 modules 插件来进行模块化处理。modules 的默认值为 commonJS。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"presets"</span>: [</div><div class="line">    [<span class="string">"es2015"</span>, &#123;<span class="string">"modules"</span>: <span class="literal">false</span>&#125;],</div><div class="line">    <span class="string">"stage-2"</span></div><div class="line">  ],</div><div class="line">  <span class="string">"env"</span>: &#123;</div><div class="line">    <span class="string">"test"</span>: &#123;</div><div class="line">      <span class="string">"presets"</span>: [<span class="string">"es2015"</span>]</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Vuex-单元测试"><a href="#Vuex-单元测试" class="headerlink" title="Vuex 单元测试"></a>Vuex 单元测试</h4><p>上面提到，针对 Vuex 部分，主要测试一些核心的 mutations 和 actions。</p>
+<h5 id="mutations测试示例（-getters-的测试与之类似）："><a href="#mutations测试示例（-getters-的测试与之类似）：" class="headerlink" title="mutations测试示例（ getters 的测试与之类似）："></a>mutations测试示例（ getters 的测试与之类似）：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mutations.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> mutations = &#123;</div><div class="line">  increment: <span class="function"><span class="params">state</span> =&gt;</span> state.count++</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// mutations.spec.js</span></div><div class="line"><span class="keyword">import</span> &#123; expect &#125; <span class="keyword">from</span> <span class="string">'chai'</span></div><div class="line"><span class="keyword">import</span> &#123; mutations &#125; <span class="keyword">from</span> <span class="string">'./store'</span></div><div class="line"></div><div class="line"><span class="comment">// 解构 mutations</span></div><div class="line"><span class="keyword">const</span> &#123; increment &#125; = mutations</div><div class="line"></div><div class="line">describe(<span class="string">'mutations'</span>, () =&gt; &#123;</div><div class="line">  it(<span class="string">'INCREMENT'</span>, () =&gt; &#123;</div><div class="line">    <span class="comment">// 模拟状态</span></div><div class="line">    <span class="keyword">const</span> state = &#123; <span class="attr">count</span>: <span class="number">0</span> &#125;</div><div class="line">    <span class="comment">// 应用 mutation</span></div><div class="line">    increment(state)</div><div class="line">    <span class="comment">// 断言结果</span></div><div class="line">    expect(state.count).to.equal(<span class="number">1</span>)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>关键点：</p>
+<ol>
+<li>将 mutations 作为独立模块导出，便于测试。</li>
+<li>在每个 test suite 中模拟局部 state 对象。</li>
+</ol>
+<h5 id="actions测试示例："><a href="#actions测试示例：" class="headerlink" title="actions测试示例："></a>actions测试示例：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// actions.js</span></div><div class="line"><span class="keyword">import</span> shop <span class="keyword">from</span> <span class="string">'../api/shop'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> getAllProducts = <span class="function">(<span class="params">&#123; commit &#125;</span>) =&gt;</span> &#123;</div><div class="line">  commit(<span class="string">'REQUEST_PRODUCTS'</span>)</div><div class="line">  shop.getProducts(<span class="function"><span class="params">products</span> =&gt;</span> &#123;</div><div class="line">    commit(<span class="string">'RECEIVE_PRODUCTS'</span>, products)</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"><span class="comment">// actions.spec.js</span></div><div class="line"></div><div class="line"><span class="comment">// 使用 require 语法处理内联 loaders。</span></div><div class="line"><span class="comment">// inject-loader 返回一个允许我们注入 mock 依赖的模块工厂</span></div><div class="line"><span class="keyword">import</span> &#123; expect &#125; <span class="keyword">from</span> <span class="string">'chai'</span></div><div class="line"><span class="keyword">const</span> actionsInjector = <span class="built_in">require</span>(<span class="string">'inject!./actions'</span>)</div><div class="line"></div><div class="line"><span class="comment">// 使用 mocks 创建模块</span></div><div class="line"><span class="keyword">const</span> actions = actionsInjector(&#123;</div><div class="line">  <span class="string">'../api/shop'</span>: &#123;</div><div class="line">    getProducts (cb) &#123;</div><div class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">        cb([ <span class="comment">/* mocked response */</span> ])</div><div class="line">      &#125;, <span class="number">100</span>)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// testAction：用指定的 mutaions 测试 action 的辅助函数</span></div><div class="line"><span class="keyword">const</span> testAction = <span class="function">(<span class="params">action, args, state, expectedMutations, done</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">let</span> count = <span class="number">0</span></div><div class="line"></div><div class="line">  <span class="comment">// 模拟提交</span></div><div class="line">  <span class="keyword">const</span> commit = <span class="function">(<span class="params">type, payload</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">const</span> mutation = expectedMutations[count]</div><div class="line"></div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      expect(mutation.type).to.equal(type)</div><div class="line">      <span class="keyword">if</span> (payload) &#123;</div><div class="line">        expect(mutation.payload).to.deep.equal(payload)</div><div class="line">      &#125;</div><div class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</div><div class="line">      done(error)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    count++</div><div class="line">    <span class="keyword">if</span> (count &gt;= expectedMutations.length) &#123;</div><div class="line">      done()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 用模拟的 store 和参数调用 action</span></div><div class="line">  action(&#123; commit, state &#125;, ...args)</div><div class="line"></div><div class="line">  <span class="comment">// 检查是否没有 mutation 被 dispatch</span></div><div class="line">  <span class="keyword">if</span> (expectedMutations.length === <span class="number">0</span>) &#123;</div><div class="line">    expect(count).to.equal(<span class="number">0</span>)</div><div class="line">    done()</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">describe(<span class="string">'actions'</span>, () =&gt; &#123;</div><div class="line">  it(<span class="string">'getAllProducts'</span>, done =&gt; &#123;</div><div class="line">    testAction(actions.getAllProducts, [], &#123;&#125;, [</div><div class="line">      &#123; <span class="attr">type</span>: <span class="string">'REQUEST_PRODUCTS'</span> &#125;,</div><div class="line">      &#123; <span class="attr">type</span>: <span class="string">'RECEIVE_PRODUCTS'</span>, <span class="attr">payload</span>: &#123; <span class="comment">/* mocked response */</span> &#125; &#125;</div><div class="line">    ], done)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>有关 actions 的测试相对比较复杂，有以下几个关键点：</p>
+<ol>
+<li>需要增加一个 mocking 服务层。</li>
+<li>把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。</li>
+</ol>
+<h4 id="后续优化方向"><a href="#后续优化方向" class="headerlink" title="后续优化方向"></a>后续优化方向</h4><ol>
+<li>如果后续测试工作开展顺利，且越来越重要的情况下，可以考虑加入 <strong>karma</strong> 的 <strong>自动化测试框架</strong> 。karma 可以模拟不通浏览器的测试环境，可以大大提升 <strong>浏览器兼容性</strong> 和 <strong>设备兼容性</strong> 的测试效率。</li>
+<li>目前的测试并不包含界面测试，后续可以考虑加入一些 <strong>核心样式</strong> 的相关测试。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mocha/" rel="tag"># Mocha</a>
+          
+            <a href="/tags/Chai/" rel="tag"># Chai</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/23/前端异常监控/" rel="next" title="前端异常监控">
+                <i class="fa fa-chevron-left"></i> 前端异常监控
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/27/VuexSourceCode/" rel="prev" title="Vuex 源码分析">
+                Vuex 源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/koa.jpeg"
+               alt="Koa" />
+          <p class="site-author-name" itemprop="name">Koa</p>
+           
+              <p class="site-description motion-element" itemprop="description">Best Rapper in Tencent</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要做单元测试"><span class="nav-number">1.</span> <span class="nav-text">为什么要做单元测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么做单元测试"><span class="nav-number">2.</span> <span class="nav-text">怎么做单元测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技术选型"><span class="nav-number">3.</span> <span class="nav-text">技术选型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境搭建与测试示例"><span class="nav-number">4.</span> <span class="nav-text">环境搭建与测试示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vuex-单元测试"><span class="nav-number">5.</span> <span class="nav-text">Vuex 单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mutations测试示例（-getters-的测试与之类似）："><span class="nav-number">5.1.</span> <span class="nav-text">mutations测试示例（ getters 的测试与之类似）：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#actions测试示例："><span class="nav-number">5.2.</span> <span class="nav-text">actions测试示例：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续优化方向"><span class="nav-number">6.</span> <span class="nav-text">后续优化方向</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="author" itemprop="copyrightHolder">Koa</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
