@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="gearman," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Gearman allows you to do work in parallel, to load balance processing, and to call functions between languages">
+<meta name="keywords" content="gearman">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gearman分布式处理实践">
+<meta property="og:url" content="http://slowlysuck.com/2016/01/14/gearman/index.html">
+<meta property="og:site_name" content="good.kid.mAAd.city">
+<meta property="og:description" content="Gearman allows you to do work in parallel, to load balance processing, and to call functions between languages">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://slowlysuck.com/img/gearmanStack.png">
+<meta property="og:image" content="http://slowlysuck.com/img/gearmanWorkflow.png">
+<meta property="og:image" content="http://slowlysuck.com/img/loadBalance.png">
+<meta property="og:updated_time" content="2017-07-30T08:23:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gearman分布式处理实践">
+<meta name="twitter:description" content="Gearman allows you to do work in parallel, to load balance processing, and to call functions between languages">
+<meta name="twitter:image" content="http://slowlysuck.com/img/gearmanStack.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://slowlysuck.com/2016/01/14/gearman/"/>
+
+
+
+
+
+  <title>Gearman分布式处理实践 | good.kid.mAAd.city</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">good.kid.mAAd.city</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Best Rapper in Tencent</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://slowlysuck.com/2016/01/14/gearman/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Koa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/koa.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="good.kid.mAAd.city">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gearman分布式处理实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-14T15:28:54+08:00">
+                2016-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Trust-The-Process/" itemprop="url" rel="index">
+                    <span itemprop="name">Trust The Process</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">Gearman allows you to do work in parallel, to load balance processing, and to call functions between languages</blockquote><br><img src="/img/gearmanStack.png" alt="Gearman architecture"><br><a id="more"></a></p>
+<h2 id="Gearman简介"><a href="#Gearman简介" class="headerlink" title="Gearman简介"></a>Gearman简介</h2><p>Gearman把工作委派给其他机器、分布式调用具有某项工作能力的机器、在并发工作的同时，在多个调用间做负载均衡。且能够实现不同语言环境的系统交互。</p>
+<p>通常，多语言多系统之间的集成是个大问题，一般来说，多半会采用 WebService 的方式来处理此类集成问题，但不管采用何种风格的WebService，如RPC风格，或者REST风格，其本身都有一定的复杂性。相比之下，Gearman 也能实现类似的作用，而且更简单易用。</p>
+<p>对于分布式网络环境或者有大量任务的应用，我们需要将任务在不同的服务器之间进行分布，这个时候正好是Gearman发挥实力的时候。另外，我们也可以使用Message Queue再加一些自己实现的调度算法来将任务进行分发。</p>
+<p>Gearman提供了一种通用的程序框架来将你的任务分发到不同的机器或者不同的进程当中。它提供了你进行并行工作的能力、负载均衡处理的能力，以及在不同程序语言之间沟通的能力。Gearman能够应用的领域非常广泛，从高可用的网站到数据库的复制任务。总之，Gearman就是负责分发处理的中枢系统，它的优点包括：</p>
+<ul>
+<li>开源：Gearman免费并且开源而且有一个非常活跃的开源社区。</li>
+<li>多语言支持：Gearman支持的语言种类非常丰富。支持用一种语言来编写Worker程序，用另外一种语言编写Client程序。</li>
+<li>灵活：不必拘泥于固定的设计模式。可以采用你希望的任何形式，例如 Map/Reduce。</li>
+<li>快速：Gearman的协议非常简单，并且有一个用C/C++语言实现的，经过优化的服务器，保证应用的负载在非常低的水平。</li>
+<li>可植入：因为Gearman非常小巧、灵活。因此可以将他置入到现有的任何系统中。</li>
+<li>没有单点：Gearman不仅可以帮助扩展系统，同样具有较高的容错能力。</li>
+</ul>
+<h3 id="Gearman工作原理"><a href="#Gearman工作原理" class="headerlink" title="Gearman工作原理"></a>Gearman工作原理</h3><p>使用Gearman的应用通常有三部分组成：<strong>Client</strong>、<strong>Worker</strong>、<strong>Job Server</strong>。</p>
+<ul>
+<li>Client作为业务提供者，产生一个Job任务提交给Job Server。</li>
+<li>Worker在运行之初，会主动告知Job Server自己的工作能力，然后处于空闲状态，等待Job Server给自己派发任务。</li>
+<li>Job Server在接收到Client提交的Job任务之后，会去寻找一个合适的Worker来完成这项任务。</li>
+<li>Worker执行由Client发送过来的Job，并且将结果通过Job Server返回给Client。</li>
+<li>Gearman提供了Client和Worker的API，利用这些API应用可以同Job Server来进行通信。Gearman内部Client和 Worker之间的通信都是通过<strong>TCP</strong>连接来进行的。</li>
+</ul>
+<p><img src="/img/gearmanWorkflow.png" alt="Gearman workflow"></p>
+<p>一个Gearman请求的处理过程涉及三个角色：Client -&gt; Job -&gt; Worker。</p>
+<ul>
+<li>Gearman Client：提供Gearman Client API给应用程序调用。API可以使用C,PHP,PERL,MYSQL UDF等多种语言，它是请求的发起者。</li>
+<li>Gearman Job Server：将客户端的请求分发到各个gearman worker的调度者，相当于中央控制器，但它不处理具体业务逻辑。</li>
+<li>Gearman Worker：提供Gearman Worker API给应用程序调用，具体负责客户端的请求，并将处理结果返回给客户端。</li>
+<li>因为 Client，Worker并不限制用一样的语言，所以有利于多语言多系统之间的集成。甚至可以通过增加更多的Worker，很方便的实现应用程序的分布式负载均衡架构。</li>
+</ul>
+<h3 id="Gearman的负载均衡"><a href="#Gearman的负载均衡" class="headerlink" title="Gearman的负载均衡"></a>Gearman的负载均衡</h3><p>Gearman不但可以做为任务分发，还可以做为应用方面的负载均衡。可以让Worker运行在不同的一堆服务器上，也可以运行在同一个CPU的多个核上。比如，应用视频转换程序，不希望WEB服务器来处理视频格式转换，这时，可以在这一堆服务器上进行任务分发，让Worker处理视频格式，对外的WEB服务器就不会被视频转换过程影响。而且扩展方便，加一台服务器到任务调度中心，注册成Worker即可，这时Job Server会在请求到来的时候，将请求发送给空闲的Worker。</p>
+<p>Job Server也可以开启多个实例，组成HA架构，这样在其中一个发生故障的时候，Client和Worker会自动Failover到其他的机器上，规避单点。</p>
+<p><img src="/img/loadBalance.png" alt="Gearman loadbalance"></p>
+<h2 id="在CentOS上搭建Gearman环境"><a href="#在CentOS上搭建Gearman环境" class="headerlink" title="在CentOS上搭建Gearman环境"></a>在CentOS上搭建Gearman环境</h2><h3 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h3><ul>
+<li><p>操作系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@base ~]# head -n 1 /etc/issue</div><div class="line">CentOS release 6.6 (Final)</div></pre></td></tr></table></figure>
+</li>
+<li><p>Gearman版本<br>Gearman的Job Server和Client &amp; Worker APIs实现对多种语言的支持，包括<strong>C</strong>，<strong>Java</strong>，<strong>PHP</strong>，<strong>Shell</strong>等等。在<a href="http://gearman.org/download/" target="_blank" rel="external">官网</a>可以根据需要下载不同的语言版本。</p>
+</li>
+</ul>
+<h3 id="Gearman-in-C-C"><a href="#Gearman-in-C-C" class="headerlink" title="Gearman in C/C++"></a>Gearman in C/C++</h3><p>按照官网的描述：</p>
+<blockquote>
+<p>A job server written in C/C++ under the BSD license that contains all of the latest protocol additions. Development for this is very active, with threading, persistent queues, and pluggable protocols now supported. Replication and better statistics reporting are coming soon. This installs an executable called gearmand (usually in /usr/local/sbin). The C library, libgearman, is bundled in the same package.</p>
+<p>The C client &amp; worker API under BSD license that can be found in the same package as the C server. This library is closely tied with the gearmand C job server, sharing low level connection and protocol code.</p>
+</blockquote>
+<p>意思就是说，在C语言的实现版本中，Job Server以及Client和Worker所提供的API，都绑定在了一个package里面。</p>
+<p>由于CentOs的yum源貌似并找不到Gearman，所以采用下载源码然后编译的方式安装。</p>
+<ul>
+<li><p>编译源码，gcc/gcc-c++是必要的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@base gearman]# yum install -y gcc</div><div class="line">[root@base gearman]# yum install -y gcc-c++</div></pre></td></tr></table></figure>
+</li>
+<li><p>下载tar包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@base gearman]# wget https://launchpad.net/gearmand/1.2/1.1.12/+download/gearmand-1.1.12.tar.gz</div><div class="line">--2016-01-14 16:16:25--  https://launchpad.net/gearmand/1.2/1.1.12/+download/gearmand-1.1.12.tar.gz</div><div class="line">正在解析主机 launchpad.net... 91.189.89.222, 91.189.89.223</div><div class="line">正在连接 launchpad.net|91.189.89.222|:443... 已连接。</div><div class="line">...</div></pre></td></tr></table></figure>
+</li>
+<li><p>下载完成后，解压，configure，make，make install，中间会报一些错，基本上都是Centos缺少的组件，通过yum直接install就好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">[root@base gearman]# tar -xzvf gearmand-1.1.12.tar.gz</div><div class="line">[root@base gearman]# cd gearmand-1.1.12</div><div class="line">[root@base gearmand-1.1.12]# ./configure</div><div class="line">...</div><div class="line">configure: error: could not find boost</div><div class="line">#缺少boost</div><div class="line">[root@base gearmand-1.1.12]# yum install -y boost boost-devel</div><div class="line">[root@base gearmand-1.1.12]# ./configure</div><div class="line">...</div><div class="line">configure: error: could not find gperf</div><div class="line">#缺少gperf</div><div class="line">[root@base gearmand-1.1.12]# yum install -y gperf</div><div class="line">[root@base gearmand-1.1.12]# ./configure</div><div class="line">...</div><div class="line">configure: error: Unable to find libevent</div><div class="line">#缺少libevent</div><div class="line">[root@base gearmand-1.1.12]# yum install libevent-devel*</div><div class="line">[root@base gearmand-1.1.12]# ./configure</div><div class="line">...</div><div class="line">configure: error: Unable to find libuuid</div><div class="line">#缺少libuuid</div><div class="line">[root@base gearmand-1.1.12]# yum install libuuid-devel</div><div class="line">[root@base gearmand-1.1.12]# ./configure</div><div class="line">#success</div><div class="line">[root@base gearmand-1.1.12]# make  </div><div class="line">[root@base gearmand-1.1.12]# make install</div><div class="line">[root@base gearmand-1.1.12]# gearmand -V</div><div class="line">gearmand 1.1.12 - https://bugs.launchpad.net/gearmand</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>至此Gearman基本安装完成了。</p>
+<h3 id="Gearman-Command-Line-Tool"><a href="#Gearman-Command-Line-Tool" class="headerlink" title="Gearman Command Line Tool"></a>Gearman Command Line Tool</h3><blockquote>
+<p>This is included as part of the gearmand and libgearman package. This tool allows you to run Gearman clients and workers from the command line or in shell scripts. This is installed as an executable called gearman (usually in /usr/local/bin).<br>It provides both a client and worker interface, with multiple options for each. Run gearman -H for all available options.</p>
+</blockquote>
+<p>Gearman提供命令行的方式启动Job Server，Worker和Client。</p>
+<ul>
+<li><p>启动Job Server：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@base gearmand-1.1.12]# gearmand -d</div><div class="line">gearmand: Could not open log file &quot;/usr/local/var/log/gearmand.log&quot;, from &quot;/home/loco/gearman/gearmand-1.1.12&quot;, switching to stderr. (No such file or directory)</div></pre></td></tr></table></figure>
+</li>
+<li><p>提示找不到log文件，那就创一个，然后再次启动Job Server</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@base gearmand-1.1.12]# cd /usr/local/</div><div class="line">[root@base local]# mkdir ./var</div><div class="line">[root@base local]# cd ./var/</div><div class="line">[root@base var]# mkdir ./log</div><div class="line">[root@base var]# touch ./log/gearmand.log</div><div class="line">[root@base gearmand-1.1.12]# gearmand -d</div></pre></td></tr></table></figure>
+</li>
+<li><p>起一个Worker，Worker向Job Server注册一个输出文件行数的function。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@base gearman]# gearman -w -f wc -- wc -l</div></pre></td></tr></table></figure>
+<p>  参数解释：</p>
+<pre><code>-w：gearman以worker模式运行
+-f：注册一个function
+wc：函数名
+wc -l：function的实际工作
+</code></pre><blockquote>
+<p>This will start a worker, connect to the job server on <strong>localhost</strong> (the default), and <strong>register the function wc</strong> (the argument to the -f option). For each job that comes in, the gearman tool will <strong>fork a process to run the wc -l command</strong>. The gearman tool will write the workload of the job to the processes standard input, and then read the response from standard output. The gearman tool will wait and <strong>accept jobs indefinitely</strong>, so press CTRL-C or kill the process to stop.</p>
+</blockquote>
+</li>
+<li><p>起一个Client，尝试调用Worker的wc函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@base ~]# gearman -f wc &lt; /etc/passwd</div><div class="line">34</div></pre></td></tr></table></figure>
+<blockquote>
+<p>This will submit <strong>a foreground job</strong> to the Gearman job server running on localhost for the function wc. The workload for this job will be the entire contents of the file /etc/passwd. The worker started above will process this request and send the result 34 back.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="分布式处理"><a href="#分布式处理" class="headerlink" title="分布式处理"></a>分布式处理</h3><p>在了解了Gearman大致玩法的基础上，可以来尝试一下将Client，Worker，Job Server部署在不同的节点上。</p>
+<ul>
+<li>准备至少两个节点，按照上述流程安装好Gearman。</li>
+<li>保证所有节点在同一个网段中，能够相互ping通。</li>
+</ul>
+<p>具体实践：</p>
+<ul>
+<li>三个节点，分别部署Client，Worker，Job Server</li>
+<li>静态ip，使用同一个网关。<ul>
+<li>client ip: 192.168.61.98</li>
+<li>worker ip: 192.168.61.99</li>
+<li>job server ip: 192.168.61.100</li>
+</ul>
+</li>
+<li><p>启动job server：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@base gearmand-jobserver]# gearmand -d</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动Worker，注册function：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@base gearmand-worker]# gearman -h 192.168.61.100 -w -f wc -- wc -l</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动Client，提交job任务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@base gearmand-client]# gearman -h 192.168.61.100 -f wc &lt; /etc/passwd</div><div class="line">34</div></pre></td></tr></table></figure>
+</li>
+<li><p>worker和client只和job server进行交互，job server负责两者之间的消息传递，上述这个小例子基本上可以玩明白了。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gearman/" rel="tag"># gearman</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/13/hexo/" rel="next" title="使用 Hexo 搭建博客">
+                <i class="fa fa-chevron-left"></i> 使用 Hexo 搭建博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/koa.jpeg"
+               alt="Koa" />
+          <p class="site-author-name" itemprop="name">Koa</p>
+           
+              <p class="site-description motion-element" itemprop="description">Best Rapper in Tencent</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gearman简介"><span class="nav-number">1.</span> <span class="nav-text">Gearman简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman工作原理"><span class="nav-number">1.1.</span> <span class="nav-text">Gearman工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman的负载均衡"><span class="nav-number">1.2.</span> <span class="nav-text">Gearman的负载均衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在CentOS上搭建Gearman环境"><span class="nav-number">2.</span> <span class="nav-text">在CentOS上搭建Gearman环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境"><span class="nav-number">2.1.</span> <span class="nav-text">系统环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman-in-C-C"><span class="nav-number">2.2.</span> <span class="nav-text">Gearman in C/C++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman-Command-Line-Tool"><span class="nav-number">2.3.</span> <span class="nav-text">Gearman Command Line Tool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式处理"><span class="nav-number">2.4.</span> <span class="nav-text">分布式处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="author" itemprop="copyrightHolder">Koa</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
